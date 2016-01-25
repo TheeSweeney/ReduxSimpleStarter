@@ -7,11 +7,23 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import YTSearch from 'youtube-api-search';
 import SearchBar from './components/searchbar';
+
 const apiKey = 'AIzaSyDRCIzZ1f8j7F1cT79mA2tEN-7bGSnr5pQ';
 
 //create new component, should produce some html
 
+//we'll call YTSearch, and provide 2 args, the first being a search term and the API key
+//the second being a function saying what to dow ith that data when we get it
+YTSearch({key: apiKey, term: "Daft Punk"}, function(data){
+  console.log(data);
+})
+
+
+//where should we fetch the videos? SearchBar perhaps?
+//maybe videoDetails,
+//nope, downwards data flow - only the most parent component (index/App) should be responsible for fetching data
 const App = () => {//the only difference between this syntax and the below, is the "this" binding. But more or less, this syntax is identical to the below.
   return (
   <div>
@@ -19,6 +31,7 @@ const App = () => {//the only difference between this syntax and the below, is t
   </div>
   );
 };
+//line 18 tells the program to insert into the main div an instance of the SearchBar class
 
 /*the above syntax is equal to:
   return <div>
