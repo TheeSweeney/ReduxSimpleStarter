@@ -24,7 +24,7 @@ class SearchBar extends Component {//declares a new class with the name SearchBa
     return (
       <div>
         <input //a controlled component has it's value set by state. so it only ever changes when the state changes. this is the inverse of the previous commit where input was telling state what it should be.
-        value = {this.state.term}//
+        value = {this.state.term}//controlled component, ie it receives information on its value form state.
         onChange={event => this.setState({term: event.target.value})} />
         Value of the input: {this.state.term}
       </div>

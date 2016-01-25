@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/searchbar';
+import VideoList from './components/videoList';
 
 const apiKey = 'AIzaSyDRCIzZ1f8j7F1cT79mA2tEN-7bGSnr5pQ';
 
@@ -27,15 +28,16 @@ class App extends Component {//the only difference between this syntax and the b
 
     this.state = { videos: []}
 
-    YTSearch({key: apiKey, term: "Daft Punk"}, videos => {
-      this.setState({videos: videos}) 
+    YTSearch({key: apiKey, term: "Daft Punk"}, videos => {//we can set the param the function is called on whatever we want. so we can change data to videos
+      this.setState({ videos }) //because we changed data to videos above, the names of the key and the value are the same so we can use ES6 magic and change {videos: videos} to {just videos}.
     })
   }
-
+//we can pass the VideoList constructor a list, by adding a property or "passing props". Whatever properties are set here will be set as key value pairs in an object, that will then be passed as params into the class constructor used to make this instance of this component. so we are passing an object with the key "videos" and a valuevideoslist as an argument in the VideoList class constructor.
   render (){
     return (
       <div>
         <SearchBar />
+        <VideoList videos={this.state.videos}/>
       </div>
     );
   }
