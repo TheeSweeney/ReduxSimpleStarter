@@ -25,11 +25,16 @@ class SearchBar extends Component {//declares a new class with the name SearchBa
       <div className="search-bar">
         <input //a controlled component has it's value set by state. so it only ever changes when the state changes. this is the inverse of the previous commit where input was telling state what it should be.
         value = {this.state.term}//controlled component, ie it receives information on its value form state.
-        onChange={event => this.setState({term: event.target.value})} />
+        onChange={event => this.onInputChange(event.target.value)}/>
       </div>
     )
   }//onChange is a react event. more events can be found in docs.
 
+
+  onInputChange(term) {
+    this.setState({term});
+    this.props.onSearchTermChange(term);
+  }
 
   //dealing with events in react has two steps
   //first we declare an event handler - a fucntion that should be run whenever the event occurs

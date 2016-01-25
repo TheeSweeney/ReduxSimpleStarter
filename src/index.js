@@ -7,6 +7,7 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/searchbar';
 import VideoList from './components/videoList';
@@ -38,7 +39,7 @@ class App extends Component {//the only difference between this syntax and the b
 //we can pass the VideoList constructor a list, by adding a property or "passing props". Whatever properties are set here will be set as key value pairs in an object, that will then be passed as params into the class constructor used to make this instance of this component. so we are passing an object with the key "videos" and a valuevideoslist as an argument in the VideoList class constructor.
   
   videoSearch (term) {
-    YTSearch({key: apiKey, term: "term"}, videos  => {//we can set the param the function is called on whatever we want. so we can change "data" to "videos"
+    YTSearch({key: apiKey, term: term}, videos  => {//we can set the param the function is called on whatever we want. so we can change "data" to "videos"
       this.setState({ //because we are setting state here, as soon as this request is resolved and the state is changed, it will force the component to
       videos: videos,
       selectedVideo:videos[0]
@@ -48,10 +49,13 @@ class App extends Component {//the only difference between this syntax and the b
 
 
   render (){
+    const videoSearch = _.debounce((term) =>{this.videoSearch(term)}, 300)//debounce takes the function we pass it and returns another function that is a copy of the input, but it can only be run once every x milliseconds, in this case 300ms
+
+
     return (
       <div>
         <SearchBar 
-
+          onSearchTermChange={videoSearch}
         />
         <VideoList 
           onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
