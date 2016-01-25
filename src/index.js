@@ -27,19 +27,37 @@ class App extends Component {//the only difference between this syntax and the b
   constructor(props){
     super(props);
 
-    this.state = { videos: []}
+    this.state = { 
+      videos: [],
+      selectedVideo: null
+    };
 
-    YTSearch({key: apiKey, term: "Daft Punk"}, videos => {//we can set the param the function is called on whatever we want. so we can change "data" to "videos"
-      this.setState({ videos }) //because we changed data to videos above, the names of the key and the value are the same so we can use ES6 magic and change {videos: videos} to {just videos}.
-    })
+    this.videoSearch('Daft Punk')
+
   }
 //we can pass the VideoList constructor a list, by adding a property or "passing props". Whatever properties are set here will be set as key value pairs in an object, that will then be passed as params into the class constructor used to make this instance of this component. so we are passing an object with the key "videos" and a valuevideoslist as an argument in the VideoList class constructor.
+  
+  videoSearch (term) {
+    YTSearch({key: apiKey, term: "term"}, videos  => {//we can set the param the function is called on whatever we want. so we can change "data" to "videos"
+      this.setState({ //because we are setting state here, as soon as this request is resolved and the state is changed, it will force the component to
+      videos: videos,
+      selectedVideo:videos[0]
+      }); //because we changed data to videos above, the names of the key and the value are the same so we can use ES6 magic and change {videos: videos} to {just videos}.
+    });
+  }
+
+
   render (){
     return (
       <div>
-        <SearchBar />
-        <VideoDetail  video={this.state.videos[0]}/>
-        <VideoList videos={this.state.videos}/>
+        <SearchBar 
+
+        />
+        <VideoList 
+          onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
+          videos={this.state.videos}
+          />
+        <VideoDetail video={this.state.selectedVideo}/>
       </div>
     );
   }

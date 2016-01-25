@@ -22,7 +22,7 @@ class SearchBar extends Component {//declares a new class with the name SearchBa
   render() {//every class based react component must have a render method//this is the ES6 syntax for defining methods on a class
     //it's a function so we still need to return something //whenever writing jsx and using js variable, we wrap them in curly braces.
     return (
-      <div>
+      <div className="search-bar">
         <input //a controlled component has it's value set by state. so it only ever changes when the state changes. this is the inverse of the previous commit where input was telling state what it should be.
         value = {this.state.term}//controlled component, ie it receives information on its value form state.
         onChange={event => this.setState({term: event.target.value})} />
