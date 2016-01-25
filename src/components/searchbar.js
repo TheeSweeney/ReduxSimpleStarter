@@ -14,7 +14,7 @@ class SearchBar extends Component {//declares a new class with the name SearchBa
   constructor(props){
     super(props);//when we define a method that is already defined on the parent class - Component, which has it's own constructor method - we can call that parent's method by using super
 
-    this.state = {term: 'butts'};//when we use state, we initialize state by create a new obj and assinging it to this.state //the obj we pass will also contain properties that we want to record on the state - in this case, we want to record the prop "term" on state (meaning search term). so we want to update term whenever something is typed into the search bar.
+    this.state = {term: ''};//when we use state, we initialize state by create a new obj and assinging it to this.state //the obj we pass will also contain properties that we want to record on the state - in this case, we want to record the prop "term" on state (meaning search term). so we want to update term whenever something is typed into the search bar.
     //the above code is the only time we will change the state by using standard obj notation
     //everywhere else we will use this.setState({})
   }
@@ -26,7 +26,6 @@ class SearchBar extends Component {//declares a new class with the name SearchBa
         <input //a controlled component has it's value set by state. so it only ever changes when the state changes. this is the inverse of the previous commit where input was telling state what it should be.
         value = {this.state.term}//controlled component, ie it receives information on its value form state.
         onChange={event => this.setState({term: event.target.value})} />
-        Value of the input: {this.state.term}
       </div>
     )
   }//onChange is a react event. more events can be found in docs.

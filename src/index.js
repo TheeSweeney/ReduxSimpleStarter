@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/searchbar';
 import VideoList from './components/videoList';
+import VideoDetail from './components/videoDetail';
 
 const apiKey = 'AIzaSyDRCIzZ1f8j7F1cT79mA2tEN-7bGSnr5pQ';
 
@@ -28,7 +29,7 @@ class App extends Component {//the only difference between this syntax and the b
 
     this.state = { videos: []}
 
-    YTSearch({key: apiKey, term: "Daft Punk"}, videos => {//we can set the param the function is called on whatever we want. so we can change data to videos
+    YTSearch({key: apiKey, term: "Daft Punk"}, videos => {//we can set the param the function is called on whatever we want. so we can change "data" to "videos"
       this.setState({ videos }) //because we changed data to videos above, the names of the key and the value are the same so we can use ES6 magic and change {videos: videos} to {just videos}.
     })
   }
@@ -37,12 +38,13 @@ class App extends Component {//the only difference between this syntax and the b
     return (
       <div>
         <SearchBar />
+        <VideoDetail  video={this.state.videos[0]}/>
         <VideoList videos={this.state.videos}/>
       </div>
     );
   }
 };
-//line 18 tells the program to insert into the main div an instance of the SearchBar class
+//the line 6 prior to this tells the program to insert into the main div an instance of the SearchBar class
 
 /*the above syntax is equal to:
   return <div>
