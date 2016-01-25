@@ -1,0 +1,10 @@
+Redux
+	- predictable sate container for JS apps
+		-wut?
+	- separates data out from react.
+	-a collection of all the data that makes up the app
+		- both hard data, and meta data
+	- React reps the views, and gets all it's data from redux
+	- Redux stores all this data in a single central object
+		- called the "state". a giant object that contains all the information relative to the app
+	- having a good sense of how to design your state is critical when designing an app.
