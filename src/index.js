@@ -5,7 +5,7 @@
 //a component is a collection of js fucniotns that make html
   //writing js, but will eventually produce html
 
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/searchbar';
@@ -16,20 +16,29 @@ const apiKey = 'AIzaSyDRCIzZ1f8j7F1cT79mA2tEN-7bGSnr5pQ';
 
 //we'll call YTSearch, and provide 2 args, the first being a search term and the API key
 //the second being a function saying what to dow ith that data when we get it
-YTSearch({key: apiKey, term: "Daft Punk"}, function(data){
-  console.log(data);
-})
 
 
 //where should we fetch the videos? SearchBar perhaps?
 //maybe videoDetails,
 //nope, downwards data flow - only the most parent component (index/App) should be responsible for fetching data
-const App = () => {//the only difference between this syntax and the below, is the "this" binding. But more or less, this syntax is identical to the below.
-  return (
-  <div>
-    <SearchBar />
-  </div>
-  );
+class App extends Component {//the only difference between this syntax and the below, is the "this" binding. But more or less, this syntax is identical to the below.
+  constructor(props){
+    super(props);
+
+    this.state = { videos: []}
+
+    YTSearch({key: apiKey, term: "Daft Punk"}, videos => {
+      this.setState({videos: videos}) 
+    })
+  }
+
+  render (){
+    return (
+      <div>
+        <SearchBar />
+      </div>
+    );
+  }
 };
 //line 18 tells the program to insert into the main div an instance of the SearchBar class
 
